@@ -1,0 +1,6 @@
+# .gitignore for an OpenSCAD based project
+
+*.stl
+*.obj
+*.swp
+*.zip
