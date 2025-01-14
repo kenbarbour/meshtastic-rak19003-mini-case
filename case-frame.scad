@@ -1,5 +1,5 @@
-use <rak19003.scad>;
-use <holes.scad>;
+use <lib/rak19003.scad>;
+use <lib/utils.scad>;
 
 module case_frame() {
 	/*
