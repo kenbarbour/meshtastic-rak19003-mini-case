@@ -1,5 +1,6 @@
 use <lib/rak19003.scad>;
 use <lib/utils.scad>;
+use <lib/switch.scad>;
 
 module case_frame(
 	length=47,      // x-length; excludes lanyard loop
@@ -11,7 +12,7 @@ module case_frame(
 	 * directly, and the bolt pattern is purely functional
 	 */
 	flange = 1.25; // Thickness of the mounting flange for board
-	wallThickness = [5, 6, 2, 6]; // 0:top, 1:right, 2:bottom, 3:left
+	wallThickness = [5, 6, 2, 6.5]; // 0:top, 1:right, 2:bottom, 3:left
 	boardOffset = [.2, 1, 0.25];
 	mountHoleOffset = 3;
 	mountHoleSize = 3;
@@ -103,6 +104,15 @@ module case_frame(
 		])
 			usb_c(width=10, h=4.25, $fn=24);
 
+		// pushbutton mount
+		translate([
+			length/2,
+			width-5.5,
+			thickness-4
+		])
+		rotate([-90, 0, 0])
+		pushbutton_mount();
+
 	}
 
 	// TODO: add features for grip
@@ -187,4 +197,32 @@ module ble_mount(length=40, height=10, wall=1.6, clearance=2.6,) {
 
 }
 
+module pushbutton_mount(clearance=0.2) {
+	thru = 20; // large number to go through the other geometry
+	// button clearance
+	cylinder(r=5/2, h=thru, $fn=16);
+
+	// slot to drop in button
+	translate([(12+(2*clearance))/-2, 0-thru, 0])
+	cube([12 + (2*clearance), thru, 4.3]);
+	translate([(6.9+(2*clearance))/-2, 0-thru, 0])
+	cube([6.9 + (2*clearance), thru, 6.3]);
+
+	pushbutton_bk1208(clearance=clearance);
+
+	// TODO: space for leads
+	difference() {
+		translate([0, 2.5-thru, -5])
+		rotate([-90, 0, 0])
+		cylinder(r=10, h=thru);
+
+		// leave a tab to hold the button
+		translate([-5, 5-thru, 0-thru])
+		cube([10, thru, thru]);
+	}
+	// render button for reference only
+	%pushbutton_bk1208();
+}
+
 case_frame();
+
