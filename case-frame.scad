@@ -1,24 +1,31 @@
 use <lib/rak19003.scad>;
 use <lib/utils.scad>;
 
-module case_frame() {
+module case_frame(
+	length=47,      // x-length; excludes lanyard loop
+	width=44,       // y-width
+	thickness=10    // z-height; overall height of this part
+) {
 	/*
 	 * TODO: refactor this so that the width and length are configurable
 	 * directly, and the bolt pattern is purely functional
 	 */
 	flange = 1.25; // Thickness of the mounting flange for board
-	thickness = 10; // O'all thickness of the frame (Z-height)
 	wallThickness = [5, 6, 2, 6]; // 0:top, 1:right, 2:bottom, 3:left
 	boardOffset = [.2, 1, 0.25];
 	mountHoleOffset = 3;
 	mountHoleSize = 3;
 	e = 0.1; // some additional length 
 
-	cavityLength = 40; // x length
-	cavityWidth = 32; // y width
+	cavityLength = length - wallThickness[2] - wallThickness[0];
+	cavityWidth = width - wallThickness[1] - wallThickness[3];
 
-	length = cavityLength + wallThickness[2] + wallThickness[0];
-	width = cavityWidth + wallThickness[1] + wallThickness[3];
+
+	// DESIGN CHECK: ensure that the inner cavity is large enough
+	minCavityLength = 40;
+	minCavityWidth = 32;
+	assert(cavityLength >= minCavityLength, "case-frame inner cavity is not long enough");
+	assert(cavityWidth >= minCavityWidth, "case-frame inner cavity is not wide enough");
 
 	// TODO: add BLE antenna
 	ble_ant_clearance = 2.6; // clearance for the thickness of the BLE antenna
@@ -67,8 +74,8 @@ module case_frame() {
 		// antenna mount
 		translate([
 			length-wallThickness[0] - e,
-			width-wallThickness[3] - 8,
-			flange + (thickness - flange)/2
+			width-wallThickness[3] - 6,
+			thickness/2
 		])
 		rotate([90, 0, 0])
 		rotate([0, 90, 0])
