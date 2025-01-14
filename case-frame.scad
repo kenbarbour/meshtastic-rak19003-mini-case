@@ -104,6 +104,14 @@ module case_frame(
 		])
 			usb_c(width=10, h=4.25, $fn=24);
 
+		// reset button hole
+		translate([
+			0-e,
+			boardOffset[1] + wallThickness[1] + bleWidth + 7.75,
+			flange + boardOffset[2] + 1.1,
+		])
+			cube([wallThickness[2]+e+e, 2.5, 2]);
+
 		// pushbutton mount
 		translate([
 			length/2,
