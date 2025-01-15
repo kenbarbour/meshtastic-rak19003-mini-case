@@ -23,6 +23,12 @@ module case_cover(length=47, width=50, thickness=4, hex=false) {
 			]);
 			translate([0, 0, bottomThickness])
 				truncated_pyramid(length=length, width=width, height=thickness-bottomThickness, inset=draftOffset);
+
+			// Feet - for stability
+			footWidth = 5;
+			translate([0, (width - footWidth)/2, 0])
+				cube([ length/2, footWidth, thickness]);
+
 		}
 
 		for (position = mounting_bolts(length, width, mountHoleOffset)) {

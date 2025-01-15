@@ -16,7 +16,8 @@ module case_frame(
 	boardOffset = [.2, 1, 0.25];
 	mountHoleOffset = 3;
 	mountHoleSize = 3;
-	e = 0.1; // some additional length 
+	e = 0.1; // small number for rounding errors, should NOT affect geometry
+	lanyardWidth = min(8, thickness);
 
 	// TODO: add BLE antenna
 	bleAntClearance = 2.6; // clearance for the thickness of the BLE antenna
@@ -35,11 +36,17 @@ module case_frame(
 
 	
 	difference() {
-		cube([
-			length,
-			width,
-			thickness
-		]);
+		union() {
+			round_rect([length, width, thickness], r=3);
+			translate([
+				length, 0, 0
+			])
+			lanyard_loop(
+				width=lanyardWidth,
+				length=width-20,
+				overflow=length/2 // large enough to overcome the corner fillet
+			);
+		}
 
 		// Remove main cavity
 		difference() {
@@ -80,12 +87,6 @@ module case_frame(
 			clearance_hole(mountHoleSize);
 		}
 
-		// Corner Radiuses
-		translate([0, 0, 0-e])          rotate([0, 0, 0])    z_fillet(3);
-		translate([length, 0, 0-e])     rotate([0, 0, 90])   z_fillet(3);
-		translate([0, width, 0-e])      rotate([0, 0, 270])  z_fillet(3);
-		translate([length, width, 0-e]) rotate([0, 0, 180])  z_fillet(3);
-
 		// antenna mount
 		translate([
 			length-wallThickness[0] - e,
@@ -95,6 +96,15 @@ module case_frame(
 		rotate([90, 0, 0])
 		rotate([0, 90, 0])
 			antenna_mount();
+		// clearance for antenna
+		antennaClearanceRadius = 7; // space for wide antenna bases
+		translate([
+			length,
+			width-wallThickness[3] - 6,
+			thickness/2
+		])
+		rotate([0, 90, 0])
+			cylinder(r=antennaClearanceRadius, h=100);
 
 		// usb port
 		translate([
@@ -121,10 +131,18 @@ module case_frame(
 		rotate([-90, 0, 0])
 		pushbutton_mount();
 
+		// side texture/grip
+		gripLength = length - 20;
+		translate([
+			(length-gripLength)/2,
+			0,
+			0
+		])
+		grip_texture(gripLength, 1, thickness+e);
+
 	}
 
 	// TODO: add features for grip
-	// TODO: add a lanyard attachment
 
 	// Show board for reference only
 	translate([
@@ -134,7 +152,6 @@ module case_frame(
 		])
 	%rak19003_model();
 	
-	// TODO: Show BTLE antenna for reference only
 }
 
 module board_mount(thickness=1.2, zOffset=1, overflow=[10,10]) {
