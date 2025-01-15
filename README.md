@@ -29,3 +29,9 @@ __WARNING__: This is a work in progress.  The design is not yet complete.
 * Front cover
 * Back cover
 * Makefile for slicing/printing
+
+## License
+This project is licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license. You are free to share and adapt the design as long as proper attribution is given.
+
+### Attribution
+If you use or adapt this design, please credit Ken Barbour and include a reference to this repository.
