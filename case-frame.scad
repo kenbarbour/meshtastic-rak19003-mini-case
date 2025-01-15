@@ -69,7 +69,7 @@ module case_frame(
 				board_mount(thickness=flange, zOffset=boardOffset[2]);
 
 			// BLE Mount
-			bleMaxLength = 37;
+			bleMaxLength = 44;
 			translate([
 				wallThickness[2],
 				wallThickness[1],
@@ -187,13 +187,13 @@ module antenna_mount(hex_depth=3) {
 	clearance_hole(6, e=0.1);
 }
 
-module ble_mount(length=40, height=10, wall=1.6, clearance=2.6,) {
+module ble_mount(length=44, height=10, wall=1.6, clearance=2.6,) {
 	e = 0.01;
-	antWidth = 4; // TODO: measure width of patch antenna
-	antLength = 35; // TODO: measure length of patch antenna
+	antWidth = 7; // TODO: measure width of patch antenna
+	antLength = 40; // TODO: measure length of patch antenna
 
 	assert(height > antWidth, "BLE patch antenna is taller than height (z)");
-	assert(length > antLength, "BLE patch antenna is longer than length (x)");
+	assert(length >= antLength, "BLE patch antenna is longer than length (x)");
 
 	difference() {
 		cube([
