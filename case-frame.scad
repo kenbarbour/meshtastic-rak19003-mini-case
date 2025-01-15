@@ -184,9 +184,8 @@ module board_mount(thickness=1.2, zOffset=1, overflow=[10,10]) {
 }
 
 module antenna_mount(hex_depth=3) {
-	clearance = 0.2;
-	hexagonal_prism(d_flat=8 + clearance, h=hex_depth);
-	clearance_hole(6+clearance, e=0.1);
+	hexagonal_prism(d_flat=8, h=hex_depth);
+	clearance_hole(6.2, e=0.1);
 }
 
 module ble_mount(length=44, height=10, wall=1.6, clearance=2.6,) {
