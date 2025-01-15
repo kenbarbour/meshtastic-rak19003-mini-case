@@ -44,7 +44,8 @@ module case_frame(
 			lanyard_loop(
 				width=lanyardWidth,
 				length=width-20,
-				overflow=length/2 // large enough to overcome the corner fillet
+				overflow=length/2, // large enough to overcome the corner fillet
+				slotDiameter=6
 			);
 		}
 
@@ -249,5 +250,5 @@ module pushbutton_mount(clearance=0.3) {
 	%pushbutton_bk1208();
 }
 
-case_frame();
+case_frame($fn=32);
 

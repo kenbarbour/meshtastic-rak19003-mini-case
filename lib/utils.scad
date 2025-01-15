@@ -31,10 +31,10 @@ module grip_texture(length, depth, height) {
 	}
 }
 
-module lanyard_loop(length=30, width=8, height=10, overflow=0) {
+module lanyard_loop(length=30, width=8, height=10, overflow=0, slotDiameter=5) {
 	e=0.1;
-	slotDiameter = 5;
 	wall = (height - slotDiameter)/2;
+	assert(wall > 0, "slotDiameter too large for lanyard loop");
 	difference() {
 		union() {
 			translate([0-overflow, 0, 0])
