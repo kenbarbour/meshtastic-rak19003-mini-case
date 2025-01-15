@@ -12,7 +12,7 @@ module case_frame(
 	 * directly, and the bolt pattern is purely functional
 	 */
 	flange = 1.25; // Thickness of the mounting flange for board
-	wallThickness = [5, 6, 2, 6.5]; // 0:top, 1:right, 2:bottom, 3:left
+	wallThickness = [5, 5.5, 2, 7.5]; // 0:top, 1:right, 2:bottom, 3:left
 	boardOffset = [.2, 1, 0.25];
 	mountHoleOffset = 3;
 	mountHoleSize = 3;
@@ -223,7 +223,7 @@ module ble_mount(length=44, height=10, wall=1.6, clearance=2.6,) {
 
 }
 
-module pushbutton_mount(clearance=0.2) {
+module pushbutton_mount(clearance=0.3) {
 	thru = 20; // large number to go through the other geometry
 	// button clearance
 	cylinder(r=5/2, h=thru, $fn=16);
@@ -236,11 +236,10 @@ module pushbutton_mount(clearance=0.2) {
 
 	pushbutton_bk1208(clearance=clearance);
 
-	// TODO: space for leads
 	difference() {
-		translate([0, 2.5-thru, -5])
+		translate([0, 2.5-thru, -8])
 		rotate([-90, 0, 0])
-		cylinder(r=10, h=thru);
+		cylinder(r=13, h=thru);
 
 		// leave a tab to hold the button
 		translate([-5, 5-thru, 0-thru])
