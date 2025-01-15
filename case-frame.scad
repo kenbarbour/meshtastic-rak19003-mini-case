@@ -115,6 +115,7 @@ module case_frame(
 			usb_c(width=10, h=4.25, $fn=24);
 
 		// reset button hole
+		// TODO: enlarge and move reset button hole
 		translate([
 			0-e,
 			boardOffset[1] + wallThickness[1] + bleWidth + 7.75,
@@ -123,6 +124,7 @@ module case_frame(
 			cube([wallThickness[2]+e+e, 2.5, 2]);
 
 		// pushbutton mount
+		// TODO: make pushbutton mount stronger
 		translate([
 			length/2,
 			width-5.5,
@@ -141,8 +143,6 @@ module case_frame(
 		grip_texture(gripLength, 1, thickness+e);
 
 	}
-
-	// TODO: add features for grip
 
 	// Show board for reference only
 	translate([
@@ -183,14 +183,15 @@ module board_mount(thickness=1.2, zOffset=1, overflow=[10,10]) {
 }
 
 module antenna_mount(hex_depth=3) {
-	hexagonal_prism(d_flat=8, h=hex_depth);
-	clearance_hole(6, e=0.1);
+	clearance = 0.2;
+	hexagonal_prism(d_flat=8 + clearance, h=hex_depth);
+	clearance_hole(6+clearance, e=0.1);
 }
 
 module ble_mount(length=44, height=10, wall=1.6, clearance=2.6,) {
 	e = 0.01;
-	antWidth = 7; // TODO: measure width of patch antenna
-	antLength = 40; // TODO: measure length of patch antenna
+	antWidth = 7;
+	antLength = 40;
 
 	assert(height > antWidth, "BLE patch antenna is taller than height (z)");
 	assert(length >= antLength, "BLE patch antenna is longer than length (x)");
