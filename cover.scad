@@ -1,6 +1,12 @@
 use <lib/utils.scad>;
 
-module case_cover(length=47, width=50, thickness=4, hex=false) {
+module case_cover(
+	length=47,
+	width=50,
+	thickness=4,
+	hex=false,
+	counterboreDepth=3,
+	counterboreDiameter=8) {
 
 	bottomThickness = 1;
 	topThickness = 2;
@@ -8,8 +14,6 @@ module case_cover(length=47, width=50, thickness=4, hex=false) {
 	mountHoleSize = 3;
 	draftOffset = 1;
 	wallThickness = 2;
-	counterboreDepth = 3;
-	counterboreDiameter = 8;
 	e = 0.1; // small waste number; not for final geometry
 
 	assert(thickness >= (counterboreDepth+bottomThickness), "case_cover thickness is too small");
