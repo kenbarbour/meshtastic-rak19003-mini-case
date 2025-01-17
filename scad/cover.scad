@@ -14,6 +14,9 @@ module case_cover(
 	mountHoleSize = 3;
 	draftOffset = 1;
 	wallThickness = 2;
+	wrenchSize = hexWrenchSize(counterboreDiameter);
+	echo("Counterbore size: ", counterboreDiameter, "\n");
+	echo("Wrench size: ", wrenchSize, "\n");
 	e = 0.1; // small waste number; not for final geometry
 
 	assert(thickness >= (counterboreDepth+bottomThickness), "case_cover thickness is too small");
@@ -35,16 +38,28 @@ module case_cover(
 
 		}
 
-		for (position = mounting_bolts(length, width, mountHoleOffset)) {
-			translate([position[0], position[1], 0-e]) {
+		for (
+			position = mounting_bolts(length, width, mountHoleOffset)
+		) {
+			translate([position[0], position[1], 0]) {
 				clearance_hole(mountHoleSize);
 				translate([0,0, thickness - counterboreDepth])
 				if (hex) {
-					cylinder(r=counterboreDiameter/2 * (sqrt(3)/2), h=counterboreDepth+e+e, $fn=6);
+					cylinder(r=wrenchSize/2, h=counterboreDepth+e+e, $fn=6);
 				} else {
 					clearance_hole(counterboreDiameter, counterboreDepth+e);
 				}
 			}
+		}
+		if (hex) { // remove extra material in corners if hex is used
+			positions = mounting_bolts(length, width, mountHoleOffset);
+			zOffset = thickness - counterboreDepth;
+			xCornerOffset = 0 + counterboreDiameter/6 + mountHoleOffset - counterboreDiameter/2;
+			yCornerOffset = 0;
+			// bottom left
+			translate([0, 0, zOffset])
+			cube([positions[0][0] + xCornerOffset, positions[0][1]+yCornerOffset, thickness]);
+			// TODO: remove material to the corners of the hex
 		}
 		// Corner Radiuses
 		translate([0, 0, 0-e])          rotate([0, 0, 0])    z_fillet(3);

@@ -77,3 +77,5 @@ function mounting_bolts(length, width, holeOffset) = [
 	[ length - holeOffset, holeOffset],
 	[ length - holeOffset, width - holeOffset]
 ];
+
+function hexWrenchSize(width) = width / 2 * sqrt(3);
