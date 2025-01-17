@@ -202,10 +202,10 @@ module antenna_mount(hex_depth=3) {
 	clearance_hole(6.3, e=0.1);
 }
 
-module ble_mount(length=46, height=10, wall=1.6, clearance=2.6,) {
+module ble_mount(length=45, height=10, wall=1.6, clearance=2.6,) {
 	e = 0.01;
-	antWidth = 7;
-	antLength = 40;
+	antWidth = 7.2;
+	antLength = 41;
 
 	assert(height > antWidth, "BLE patch antenna is taller than height (z)");
 	assert(length >= antLength, "BLE patch antenna is longer than length (x)");
