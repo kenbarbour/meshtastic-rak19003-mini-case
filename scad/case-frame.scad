@@ -119,10 +119,24 @@ module case_frame(
 		// TODO: enlarge and move reset button hole
 		translate([
 			0-e,
-			boardOffset[1] + wallThickness[1] + bleWidth + 7.75,
+			boardOffset[1] + wallThickness[1] + bleWidth + 9,
 			flange + boardOffset[2] + 1.1,
 		])
 			cube([wallThickness[2]+e+e, 2.5, 2]);
+
+		// led holes
+		for (yOffset = [1, 5]) {
+			translate([
+				0-e,
+				boardOffset[1] + wallThickness[1] + bleWidth + yOffset +0.5,
+				flange + boardOffset[2] + 1.1,
+			])
+			cube([
+				wallThickness[2]+e+e,
+				1,
+				1
+			]);
+		}
 
 		// pushbutton mount
 		// TODO: make pushbutton mount stronger
@@ -171,7 +185,7 @@ module board_mount(thickness=1.2, zOffset=1, overflow=[10,10]) {
 
 		// mount holes - interference for self threading
 		translate([0,0,0-e]) {
-		rak19003_mounting_holes(diameter=2.4, $fn=16);
+		rak19003_mounting_holes(diameter=2.5, $fn=16);
 		}
 
 		// clearance for large components
@@ -184,11 +198,11 @@ module board_mount(thickness=1.2, zOffset=1, overflow=[10,10]) {
 }
 
 module antenna_mount(hex_depth=3) {
-	hexagonal_prism(d_flat=8, h=hex_depth);
-	clearance_hole(6.2, e=0.1);
+	hexagonal_prism(d_flat=8.1, h=hex_depth);
+	clearance_hole(6.3, e=0.1);
 }
 
-module ble_mount(length=44, height=10, wall=1.6, clearance=2.6,) {
+module ble_mount(length=46, height=10, wall=1.6, clearance=2.6,) {
 	e = 0.01;
 	antWidth = 7;
 	antLength = 40;

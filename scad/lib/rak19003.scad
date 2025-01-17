@@ -30,8 +30,9 @@ module rak19003_board() {
 
 
 	translate([-0.9, 14, thickness]) usb_c_port();
-	translate([0, 6.8, thickness]) reset_button();
-	// TODO: LEDs
+	translate([0, 8, thickness]) reset_button();
+	translate([0.5, 1, thickness]) led();
+	translate([0.5, 5, thickness]) led();
 	
 	// various large components
 	color("#CC9900")
@@ -91,6 +92,10 @@ module reset_button() {
 	color("#777777")
 		translate([0, (majWidth - btnWidth)/2, (majThickness - btnThickness)/2])
 		cube([btnProud, btnWidth, btnThickness]);
+}
+
+module led() {
+	cube([0.9, 2, 0.5]);
 }
 
 module rak19003_model() {

@@ -11,5 +11,5 @@ case_cover(
 	hex=false,
 	counterboreDepth=(thickness-fastenerThickness),
 	counterboreDiameter=6.2,
-	$fn=32,
+	$fn=32
 );
