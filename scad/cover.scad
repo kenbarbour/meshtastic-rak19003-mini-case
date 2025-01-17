@@ -45,22 +45,46 @@ module case_cover(
 				clearance_hole(mountHoleSize);
 				translate([0,0, thickness - counterboreDepth])
 				if (hex) {
-					cylinder(r=wrenchSize/2, h=counterboreDepth+e+e, $fn=6);
+					cylinder(r=counterboreDiameter/2, h=counterboreDepth+e+e, $fn=6);
 				} else {
 					clearance_hole(counterboreDiameter, counterboreDepth+e);
 				}
 			}
 		}
-		if (hex) { // remove extra material in corners if hex is used
+
+		// Remove corner material if hex
+		if (hex) {
 			positions = mounting_bolts(length, width, mountHoleOffset);
-			zOffset = thickness - counterboreDepth;
-			xCornerOffset = 0 + counterboreDiameter/6 + mountHoleOffset - counterboreDiameter/2;
-			yCornerOffset = 0;
-			// bottom left
-			translate([0, 0, zOffset])
-			cube([positions[0][0] + xCornerOffset, positions[0][1]+yCornerOffset, thickness]);
-			// TODO: remove material to the corners of the hex
+			hexCornerDifference( // bottom-right
+				position=positions[0],
+				angle=-120,
+				width=wrenchSize,
+				depth=counterboreDepth,
+				thickness=thickness
+			);
+			hexCornerDifference( // bottom-left
+				position=positions[1],
+				angle=120,
+				width=wrenchSize,
+				depth=counterboreDepth,
+				thickness=thickness
+			);
+			hexCornerDifference( // top-right
+				position=positions[2],
+				angle=300,
+				width=wrenchSize,
+				depth=counterboreDepth,
+				thickness=thickness
+			);
+			hexCornerDifference( // top-left
+				position=positions[3],
+				angle=60,
+				width=wrenchSize,
+				depth=counterboreDepth,
+				thickness=thickness
+			);
 		}
+
 		// Corner Radiuses
 		translate([0, 0, 0-e])          rotate([0, 0, 0])    z_fillet(3);
 		translate([length, 0, 0-e])     rotate([0, 0, 90])   z_fillet(3);
@@ -89,6 +113,20 @@ module case_cover(
 		}
 	}
 
+}
+
+module hexCornerDifference(
+	position,
+	angle,
+	width,
+	depth,
+	thickness
+) {
+	length=100; // any long enough number
+	translate([position[0], position[1], 0])
+	rotate([0,0,angle])
+	translate([0, 0-width/2, thickness-depth])
+		cube([length, width, depth]);
 }
 
 module truncated_pyramid(length, width, height, inset=5) {

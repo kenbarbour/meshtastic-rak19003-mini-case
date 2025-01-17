@@ -13,6 +13,6 @@ case_cover(
 	thickness=thickness,
 	hex=true,
 	counterboreDepth=(thickness-fastenerThickness),
-	counterboreDiameter=5.8,  // wrench size of an M3 + clearance
+	counterboreDiameter=6.5,  // wrench size of an M3 + clearance
 	$fn=32
 );
