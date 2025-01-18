@@ -125,7 +125,7 @@ module case_frame(
 			cube([wallThickness[2]+e+e, 2.5, 2]);
 
 		// led holes
-		for (yOffset = [1, 5]) {
+		for (yOffset = [1, 5, 27]) {
 			translate([
 				0-e,
 				boardOffset[1] + wallThickness[1] + bleWidth + yOffset +0.5,

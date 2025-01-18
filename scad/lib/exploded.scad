@@ -6,7 +6,7 @@ use <../cover.scad>;
  */
 $fn = 64;
 gap = 50; // distance between parts
-length = 47; // length of the case
+length = 48; // length of the case
 width = 50; // width of the case
 battery_thickness = 5;
 

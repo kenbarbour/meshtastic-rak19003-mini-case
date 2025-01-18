@@ -33,6 +33,7 @@ module rak19003_board() {
 	translate([0, 8, thickness]) reset_button();
 	translate([0.5, 1, thickness]) led();
 	translate([0.5, 5, thickness]) led();
+	translate([0.5, 27, thickness]) led(); // charging led (TODO: placement)
 	
 	// various large components
 	color("#CC9900")
