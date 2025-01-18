@@ -1,6 +1,7 @@
 # Configurable variables
 SCAD_COMPILER ?= openscad
 SLICER ?= slic3r
+SLICER_OPTS ?= 
 
 # Directories
 SCAD_DIR := scad
@@ -33,7 +34,7 @@ $(MODELS_DIR)/%.stl: $(PARTS_DIR)/%.scad
 
 # Slice .stl to .gcode
 $(MODELS_DIR)/%.gcode: $(MODELS_DIR)/%.stl
-	$(SLICER) $< --output $@
+	$(SLICER) $(SLICER_OPTS) $< --output $@
 
 clean:
 	rm -rf $(MODELS_DIR)
