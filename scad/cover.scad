@@ -5,11 +5,11 @@ module case_cover(
 	width=50,
 	thickness=4,
 	hex=false,
+	topThickness = 2,
 	counterboreDepth=3,
 	counterboreDiameter=8) {
 
 	bottomThickness = 1;
-	topThickness = 2;
 	mountHoleOffset = 3; // must match the value in case_frame
 	mountHoleSize = 3;
 	draftOffset = 1;

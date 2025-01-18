@@ -3,7 +3,7 @@ use <../cover.scad>;
 width=50;
 length=60;
 topThickness=2;
-cavityClearance=3; // space for cables
+cavityClearance=5; // space for cables
 fastenerThickness=2.6; // thickness at the fasteners
 
 thickness = topThickness + cavityClearance;
