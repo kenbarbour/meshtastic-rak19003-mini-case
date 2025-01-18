@@ -15,7 +15,7 @@ module case_frame(
 	wallThickness = [5, 5.5, 2, 7.5]; // 0:top, 1:right, 2:bottom, 3:left
 	boardOffset = [.2, 1, 0.25];
 	mountHoleOffset = 3;
-	mountHoleSize = 3;
+	mountHoleSize = 3.2;
 	e = 0.1; // small number for rounding errors, should NOT affect geometry
 	lanyardWidth = min(8, thickness);
 

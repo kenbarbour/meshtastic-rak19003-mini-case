@@ -11,7 +11,7 @@ module case_cover(
 
 	bottomThickness = 1;
 	mountHoleOffset = 3; // must match the value in case_frame
-	mountHoleSize = 3;
+	mountHoleSize = 3.2;
 	draftOffset = 1;
 	wallThickness = 2;
 	wrenchSize = hexWrenchSize(counterboreDiameter);
